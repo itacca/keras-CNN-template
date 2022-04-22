@@ -222,6 +222,12 @@ if __name__ == '__main__':
     #
     # Reading book. Investigation of MLflow and configuration files for ml project.
 
+    # Day 4: //
+
+    # Day 5:
+
+    # Pushed everything to git. Continue on laptop machine.
+
 # Experiment 1 - base network:
 # Epoch 15/15
 # 422/422 [==============================] - 2s 5ms/step
