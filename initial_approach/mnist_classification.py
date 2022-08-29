@@ -1,17 +1,15 @@
-import json
 import math
 import os
 from enum import Enum
-
-import numpy as np
-import mlflow
-from tensorflow import keras
-from tensorflow.keras import layers
+from typing import Tuple
 
 import matplotlib.pyplot as plt
-from typing import Tuple
+import mlflow
+import numpy as np
+from json_handling import load_json, save_json
 from loguru import logger
-
+from tensorflow import keras
+from tensorflow.keras import layers
 
 # Enable auto-logging to MLflow to capture TensorBoard metrics.
 mlflow.tensorflow.autolog()
@@ -86,9 +84,13 @@ def build_model(num_classes: int = 10) -> keras.Model:
     input_shape = (28, 28, 1)
     inputs = keras.Input(shape=input_shape)
 
-    x = layers.Conv2D(32, kernel_size=(3, 3), activation="relu", padding="same", strides=2)(inputs)
+    x = layers.Conv2D(
+        32, kernel_size=(3, 3), activation="relu", padding="same", strides=2
+    )(inputs)
     # x = layers.MaxPooling2D(pool_size=(2, 2))(x)
-    x = layers.Conv2D(64, kernel_size=(3, 3), activation="relu", padding="same", strides=2)(x)
+    x = layers.Conv2D(
+        64, kernel_size=(3, 3), activation="relu", padding="same", strides=2
+    )(x)
     # x = layers.MaxPooling2D(pool_size=(2, 2))(x)
 
     x = layers.Flatten()(x)
@@ -96,20 +98,6 @@ def build_model(num_classes: int = 10) -> keras.Model:
     outputs = layers.Dense(num_classes, activation="softmax")(x)
 
     return keras.Model(inputs, outputs)
-
-
-def save_json(data: dict, save_path) -> str:
-    """Util function: save data from dictionary to JSON file. """
-    with open(save_path, 'w') as json_file:
-        json.dump(data, json_file, indent=4)
-    return save_path
-
-
-def load_json(read_path: str) -> dict:
-    """Util function: reads data from JSON file and returns dictionary. """
-    with open(read_path) as json_file:
-        data = json.load(json_file)
-    return data
 
 
 def train_model(
@@ -208,44 +196,3 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
-    # Add more parameters for MLflow. [Read train configuration from file.] -> Backlog. Check PEP.
-    # Model predict - check output.
-    # Add HPO? Try Lecun architecture? Custom Loss function?
-    # Day 3: contrastive learning.
-    # Transfer learning / fine-tuning.
-    # start scientific diary.
-
-    # Day 2:
-    # Done: Model checkpoint. Add Early stopping callback.  Set better es. Save weights / model.
-
-    # Day 3: Add MLFlow?
-    #
-    # Reading book. Investigation of MLflow and configuration files for ml project.
-
-    # Day 4: //
-
-    # Day 5:
-
-    # Pushed everything to git. Continue on laptop machine.
-
-# Experiment 1 - base network:
-# Epoch 15/15
-# 422/422 [==============================] - 2s 5ms/step
-# - loss: 0.0351 - accuracy: 0.9881 - val_loss: 0.0290 - val_accuracy: 0.9922
-# Test loss: 0.04930608347058296
-# Test accuracy: 0.9843000173568726
-
-
-# Experiment 2 - included padding:
-# Epoch 15/15
-# 422/422 [==============================] - 3s 7ms/step
-# - loss: 0.0286 - accuracy: 0.9907 - val_loss: 0.0283 - val_accuracy: 0.9933
-# Test loss: 0.025280388072133064
-# Test accuracy: 0.991599977016449
-
-# Experiment 3 - included padding and stride = 2:
-# Epoch 15/15
-# 422/422 [==============================] - 3s 7ms/step
-# - loss: 0.0503 - accuracy: 0.9841 - val_loss: 0.0395 - val_accuracy: 0.9897
-# Test loss: 0.035312116146087646
-# Test accuracy: 0.987500011920929

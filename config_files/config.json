@@ -1,0 +1,55 @@
+{
+    "data": {
+        "batch_size": 128,
+        "random_seed": 42,
+        "num_of_classes": 10,
+        "test_size": 0.2
+    },
+    "train": {
+        "batch_size": 128,
+        "epochs": 20,
+        "loss": "categorical_crossentropy",
+        "optimizer": "adam",
+        "metrics": ["accuracy"],
+        "checkpoint_dir": "checkpoint_dir"
+    },
+    "model": {
+        "augmentation": {
+            "active": false,
+            "random_flip": {
+                "mode": "horizontal_and_vertical"
+            },
+            "random_rotation": {
+                "factor": 0.2
+            },
+            "random_zoom": {
+                "height_factor": [0.2, 0.3],
+                "width_factor": [0.2, 0.3]
+            },
+            "random_translation": {
+                "factors": [0.3, 0.3]
+            }
+        },
+        "input": [28, 28, 1],
+        "stack": [
+            {
+                "name": "conv_1",
+                "filters": 32,
+                "padding": "same",
+                "strides": 2,
+                "bn_next": true,
+                "relu_next": true
+            },
+            {
+                "name": "conv_2",
+                "filters": 64,
+                "padding": "same",
+                "strides": 2,
+                "bn_next": true,
+                "relu_next": true
+            }
+        ],
+        "closing_layer": "flatten",
+        "output": 10
+    }
+}
