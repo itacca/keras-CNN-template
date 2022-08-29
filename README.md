@@ -1,7 +1,8 @@
 # Keras CNN - OOP Classification Pipeline
 
 The project represents an attempt to build modular, OOP approach
-for Multi-class classification on images. 
+for Multi-class classification on images, which could serve as a template
+for other Computer Vision specific tasks. 
 
 This should be viewed as an introductory Computer Vision (CV) project, 
 built around Convolutional Neural Network (CNN) architecture in Keras,
@@ -46,3 +47,8 @@ training parameters, which could be seen on MLflow standalone server.
 Run the MLflow UI from the local terminal:
 
     mlflow ui
+
+## References
+* https://github.com/The-AI-Summer/Deep-Learning-In-Production: very 
+good materials on Deep Learning in general, including the best 
+practices on writing Deep Learning code.
